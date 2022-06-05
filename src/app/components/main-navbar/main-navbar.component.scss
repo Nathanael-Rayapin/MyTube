@@ -1,0 +1,60 @@
+nav {
+    position: relative;
+
+    // Brand
+    .openSidebar {
+        padding-top: 5px;
+    }
+
+    .bi-list {
+        font-size: 28px;
+        cursor: pointer;
+    }
+
+    .brand img {
+        width: 100px;
+        cursor: pointer;
+    }
+
+    // Search Bar
+    .search-bar {
+        input {
+            border: 1px solid #d3d3d3;
+            height: 40px;
+        }
+
+        .bi-search {
+            font-size: 20px;
+            border: 1px solid #d3d3d3;
+            background-color: #f8f8f8;
+            height: 40px;
+        }
+
+        .bi-mic-fill {
+            font-size: 20px;
+            cursor: pointer;
+        }
+    }
+
+    // Setting
+    ul {
+        list-style: none;
+
+        li {
+            font-size: 28px;
+            cursor: pointer;
+        }
+    }
+
+    .profile {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+
+        img {
+            object-fit: cover;
+            object-position: center;
+            border-radius: 50%;
+        }
+    }
+}
