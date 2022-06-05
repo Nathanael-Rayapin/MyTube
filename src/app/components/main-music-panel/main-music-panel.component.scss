@@ -1,0 +1,32 @@
+// Video Container
+.video-container {
+    position: relative;
+    height: 550px;
+    overflow: hidden;
+
+    video {
+
+        object-fit: cover;
+    }
+}
+
+// Description Video
+.description {
+    ul {
+        list-style: none;
+    }
+
+    li span:not(.impInfo) {
+        font-weight: 500;
+    }
+}
+
+// Setting Icons
+.bi-hand-thumbs-up,
+.bi-hand-thumbs-down,
+.bi-share,
+.bi-download,
+.bi-scissors,
+.bi-bookmark-plus {
+    font-size: 20px;
+}
