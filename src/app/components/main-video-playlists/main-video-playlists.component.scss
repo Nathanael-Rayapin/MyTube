@@ -1,0 +1,39 @@
+.videos-playlists {
+    .cards {
+        height: 120px;
+        cursor: pointer;
+
+        .cover {
+            width: 220px;
+
+            img {
+                width: 220px;
+                object-fit: cover;
+                object-position: center;
+            }
+        }
+
+        .description {
+            position: relative;
+
+            p {
+                position: absolute;
+                top: 0.2rem;
+                left: 1rem;
+                font-size: 16px;
+                font-weight: 500;
+            }
+
+            .sub-infos {
+                position: absolute;
+                left: 1rem;
+                bottom: 0.5rem;
+
+                span {
+                    font-size: 14px;
+                    font-weight: 400;
+                }
+            }
+        }
+    }
+}
