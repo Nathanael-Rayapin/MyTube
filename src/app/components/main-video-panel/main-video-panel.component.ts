@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { CardsLists } from 'src/app/core/data/cards-lists';
+import { Video } from 'src/app/core/data/model/video-model';
 import { VideoService } from 'src/app/core/data/service/video-service';
+import { VideoFeatureStoreState } from 'src/app/core/data/store/video-feature-store';
 
 @Component({
   selector: 'app-main-video-panel',
@@ -10,10 +12,11 @@ import { VideoService } from 'src/app/core/data/service/video-service';
 })
 export class MainVideoPanelComponent implements OnInit {
   // Current Video
-  video$: Observable<CardsLists>;
+  video$: Observable<Video>;
 
   constructor(
-    private videoService: VideoService
+    private videoService: VideoService,
+    private store: Store<{ video: VideoFeatureStoreState.State }>
   ) { }
 
   ngOnInit(): void {

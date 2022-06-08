@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { CardsLists } from 'src/app/core/data/cards-lists';
+import { select, Store } from '@ngrx/store';
+import { map, Observable } from 'rxjs';
+import { Video } from 'src/app/core/data/model/video-model';
 import { VideoService } from 'src/app/core/data/service/video-service';
+
+import { VideoFeatureStoreState } from 'src/app/core/data/store/video-feature-store';
+import { VideoFeatureStoreActions } from 'src/app/core/data/store/video-feature-store';
+import { VideoFeatureStoreSelectors } from 'src/app/core/data/store/video-feature-store';
 
 @Component({
   selector: 'app-main-video-playlists',
@@ -9,42 +15,49 @@ import { VideoService } from 'src/app/core/data/service/video-service';
 })
 export class MainVideoPlaylistsComponent implements OnInit {
   // Cards
-  cards: CardsLists[] = CardsLists;
-  currentData: CardsLists;
+  videos$: Observable<Video[]>;
+  currentVideoData: Video;
 
   constructor(
-    private videoService: VideoService
+    private videoService: VideoService,
+    private store: Store<{ video: VideoFeatureStoreState.State }>
   ) { }
 
   ngOnInit(): void {
+    this.videos$ = this.store.pipe(select(VideoFeatureStoreSelectors.selectAll));
   }
 
-  onChangeVideo(card: CardsLists) {
+  onChangeVideo(card: Video) {
     this.saveCurrentVideoData();
-    this.videoService.onViewVideo(card);
-    this.removeVideoSelectedFromLists(card);
-    this.addPreviousVideoInLists();
-    this.shuffleVideoLists();
+    this.videoService.setVideo(card);
+    this.asyncVideosLists(card);
   }
 
   // Save Default Video Data
   saveCurrentVideoData(): void {
-    this.currentData = this.videoService.currentVideo$.value;
+    this.currentVideoData = this.videoService.currentVideo$.value;
   }
 
-  //  Remove Select Video from Cards Lists
-  removeVideoSelectedFromLists(card: CardsLists): CardsLists[] {
-    const filteredCard = this.cards.filter(x => x.id !== card.id);
-    return this.cards = filteredCard;
+  // Remove Select Video from Cards Lists
+  removeVideoSelectedFromLists(card: Video): void {
+    this.store.dispatch(new VideoFeatureStoreActions.DeleteVideo(card.id))
+      ;
   }
 
   // Add Previous Video to the List
-  addPreviousVideoInLists(): number {
-    return this.cards.push(this.currentData);
+  addPreviousVideoInLists(): void {
+    this.store.dispatch(new VideoFeatureStoreActions.AddVideo(this.currentVideoData));
   }
 
-  // Additionnaly Shuffle Cards Lists
-  shuffleVideoLists(): CardsLists[] {
-    return this.cards.sort((a, b) => 0.5 - Math.random());
+  asyncVideosLists(card: Video) {
+    const promise = new Promise((resolve, reject) => {
+      resolve(this.removeVideoSelectedFromLists(card));
+    })
+    promise.then(() => {
+      this.addPreviousVideoInLists();
+    })
+      .catch(() => {
+        console.log('An Error has Occured');
+      });
   }
 }
