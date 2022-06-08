@@ -1,12 +1,33 @@
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
-import { CardsLists } from "../cards-lists";
+import { BehaviorSubject, Observable } from "rxjs";
+import { Video } from "../model/video-model";
 
 @Injectable({ providedIn: 'root' })
 export class VideoService {
+    // Fake API Rest 
+    baseUrl: string;
 
-    // Default Observable
-    currentVideo$ = new BehaviorSubject<CardsLists>({
+    constructor(
+        private http: HttpClient
+    ) {
+        this.baseUrl = 'http://localhost:3000/videos';
+    }
+
+    getAll(): Observable<Video[]> {
+        return this.http.get<Video[]>(this.baseUrl);
+    }
+
+    addVideo(video: Video) {
+        return this.http.post<Video>(this.baseUrl, video);
+    }
+
+    deleteVideo(videoId: number) {
+        return this.http.delete<Video>(`${this.baseUrl}/${videoId}`);
+    }
+
+    // Default Observable (Current Video)
+    currentVideo$ = new BehaviorSubject<Video>({
         id: Math.floor(Date.now() * Math.random()),
         title: 'The Crown of War',
         poster: '../../../../assets/poster/motocross.jpg',
@@ -17,10 +38,9 @@ export class VideoService {
         like: '9.9k',
         dislike: '0',
     })
-    CardsLists: any;
 
     // View a New Video
-    onViewVideo(card: CardsLists) {
+    setVideo(card: Video) {
         this.currentVideo$.next(
             {
                 id: card.id,
