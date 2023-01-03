@@ -17,6 +17,10 @@ This is a small project for the practical application of Ngrx
 
 ## Development server
 
+* Clone or Fork the project :
+[Clone a repo](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) /
+[Fork a repo](https://docs.github.com/en/get-started/quickstart/fork-a-repo)
+
 * Run dev server :
 ```
 ng serve
