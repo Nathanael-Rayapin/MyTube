@@ -17,23 +17,23 @@ This is a small project for the practical application of Ngrx
 
 ## Development server
 
-* Clone or Fork the project :
+1 - Clone or Fork the project :
 [Clone a repo](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) /
 [Fork a repo](https://docs.github.com/en/get-started/quickstart/fork-a-repo)
 
-* Run dev server :
+2 - Run dev server :
 ```
 ng serve
 ``` 
 Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-* Install all depencencies :
+3 - Install all depencencies :
 ```
 npm install
 ```
 To make sur you everything work correctly.
 
-* Don't forget to execute the Fake Rest API :
+4 - Don't forget to execute the Fake Rest API :
 ```
 npm run db
 ```
